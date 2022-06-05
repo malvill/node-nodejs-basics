@@ -1,3 +1,6 @@
 export const parseArgs = () => {
-    // Write your code here 
+    const args = process.argv;
+    for (let argKey of Object.keys(args)) {
+        console.log(`${argKey} is ${args[argKey]}`)
+    }
 };
