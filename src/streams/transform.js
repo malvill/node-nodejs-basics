@@ -1,4 +1,4 @@
-import { pipeline, Transform } from 'stream'
+import {pipeline, Transform} from 'stream'
 
 export const transform = async () => {
     const readableFromTerminal = process.stdin;
@@ -16,6 +16,9 @@ export const transform = async () => {
         readableFromTerminal,
         transform,
         writableToTerminal,
-        err => console.log(err)
-    );
+        err => {
+            if (err) console.log(err);
+        });
 };
+
+transform();

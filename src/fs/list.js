@@ -1,10 +1,10 @@
-import path, {dirname} from "path";
-import {fileURLToPath} from "url";
+import path from "path";
 import fs from "fs";
 import {DEFAULT_ERROR_MESSAGE} from "./constants.js";
+import {getDirname} from "../common.js";
 
 export const list = async () => {
-    const __dirname = dirname(fileURLToPath(import.meta.url));
+    const __dirname = getDirname(import.meta.url);
     const filesPath = path.join(__dirname, 'files');
 
     if (!fs.existsSync(filesPath)) {
@@ -16,3 +16,4 @@ export const list = async () => {
     })
 }
 
+list();

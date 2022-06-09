@@ -1,6 +1,9 @@
 export const parseEnv = () => {
-    const keys = Object.keys(process.env).filter(key => key.slice(4));
-    for (const key of keys) {
-        process.stdout.write(`${key}=${process.env[key]}\n`)
-    }
+    const rssVariables = Object.entries(process.env)
+        .filter(([key, _]) => key.startsWith('RSS_'))
+        .map(([key, value]) => `${key}=${value}`)
+
+    console.log(rssVariables.join('; '))
 };
+
+parseEnv();

@@ -1,12 +1,12 @@
 import os from 'os';
 import { Worker } from 'worker_threads';
-import path, {dirname} from "path";
-import {fileURLToPath} from "url";
+import path from "path";
+import { getDirname } from "../common.js";
 
 export const performCalculations = async () => {
     const numOfCpus = os.cpus().length;
     const workers = [];
-    const __dirname = dirname(fileURLToPath(import.meta.url));
+    const __dirname = getDirname(import.meta.url);
     const filePath = path.join(__dirname, 'worker.js');
 
     for (let i = 0; i <= numOfCpus; i++) {
@@ -20,3 +20,5 @@ export const performCalculations = async () => {
 
     return await Promise.all(workers);
 };
+
+console.log(await performCalculations());

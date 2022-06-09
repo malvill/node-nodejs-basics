@@ -1,20 +1,17 @@
 import { release, version } from 'os';
 import { createServer as createServerHttp } from 'http';
-import path, { dirname } from "path";
-import { fileURLToPath } from "url";
+import path from 'path';
+import { fileURLToPath } from 'url';
 import './files/c.js';
+import { getDirname } from "../common.js";
 
 const random = Math.random();
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const __dirname = getDirname(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
 
-let unknownObject;
-
-if (random > 0.5) {
-    unknownObject = import('./files/a.json', { assert: { type: "json" } });
-} else {
-    unknownObject = import('./files/b.json', { assert: { type: "json" } });
-}
+const { default: unknownObject } = random > 0.5 ?
+    await import('./files/a.json', { assert: { type: "json" } }) :
+    import('./files/b.json', { assert: { type: "json" } });
 
 console.log(`Release ${release()}`);
 console.log(`Version ${version()}`);
